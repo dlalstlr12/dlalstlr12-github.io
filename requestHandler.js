@@ -1,6 +1,6 @@
 const fs = require('fs');
 const main_view = fs.readFileSync('./index.html','utf-8');
-const orderlist_view = fs.readFileSync('./orderlist.html');
+const portfoliolist_view = fs.readFileSync('./portfoliolist.html');
 
 const mariadb = require('./database/connect/mariadb');
 
@@ -52,12 +52,12 @@ function order(response, productId) {
     
 }
 
-function orderlist(response) {
-    console.log('orderlist')
+function portfoliolist(response) {
+    console.log('portfoliolist')
     response.writeHead(200, {'Content-Type' : 'text/html'});
   
     mariadb.query("SELECT * FROM orderlist",  function(err, rows) {
-      response.write(orderlist_view);
+      response.write(portfoliolist_view);
   
       rows.forEach(element => {
         response.write(
@@ -74,7 +74,7 @@ function orderlist(response) {
 let handle = {}; //key: value
 handle['/'] = main;
 handle['/order'] =order;
-handle['/orderlist'] = orderlist;
+handle['/portfoliolist'] = portfoliolist;
 
 /* image directory */
 handle['/img/movie.png'] = movie;
